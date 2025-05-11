@@ -1,0 +1,8 @@
+[
+    { "name": "Clean Water Initiative", "category": "Environment", "rating": 4.8, "location": "Global" },
+    { "name": "Books for All", "category": "Education", "rating": 4.5, "location": "USA" },
+    { "name": "HealthAid International", "category": "Health", "rating": 4.7, "location": "Global" },
+    { "name": "Equal Rights Org", "category": "Human Rights", "rating": 4.6, "location": "USA" },
+    { "name": "GreenFuture", "category": "Environment", "rating": 4.4, "location": "Canada" }
+  ]
+  
