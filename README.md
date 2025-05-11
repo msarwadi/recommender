@@ -21,7 +21,7 @@ Next, I poured through Change's Existing Documentation from which I found the AP
    ```
    bash
    git clone https://github.com/msarwadi/recommender.git
-   cd nonprofit-recommender
+   cd recommender
    ```
 2. Install dependencies:  
    ```
