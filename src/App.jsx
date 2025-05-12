@@ -1,51 +1,51 @@
-// src/App.jsx
-import { useState, useEffect } from 'react';
-import NonprofitList from './components/NonprofitList';
-import './index.css';
+import React, { useEffect, useState } from 'react';
 
-const roles = {
-  CEO: 3,
-  "CSR Manager": 2,
-  "Marketing Lead": 1
-};
-
-const causes = [
-  'Education',
-  'Health',
-  'Environment',
-  'Human Rights'
-];
-
-function App() {
-  const [role, setRole] = useState('CEO');
-  const [cause, setCause] = useState('Education');
+const App = () => {
   const [nonprofits, setNonprofits] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const PUBLIC_KEY = import.meta.env.VITE_PUBLIC_KEY;
 
   useEffect(() => {
-    fetch('/nonprofits.json')
-      .then(res => res.json())
-      .then(data => setNonprofits(data));
-  }, []);
+    const fetchNonprofits = async () => {
+      const url = new URL("https://api.getchange.io/api/v1/nonprofits");
+      url.searchParams.append("public_key", PUBLIC_KEY);
+      url.searchParams.append("limit", "20");
+      // You can include multiple categories here if you'd like:
+      url.searchParams.append("categories[]", "education");
+      url.searchParams.append("categories[]", "healthcare");
 
-  const filtered = nonprofits.filter(n => n.category === cause);
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+        setNonprofits(data.nonprofits || []); // Ensure nonprofits key exists
+      } catch (error) {
+        console.error("Error fetching nonprofits:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchNonprofits();
+  }, [PUBLIC_KEY]);
 
   return (
-    <div className="p-6 font-sans max-w-2xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Nonprofit Recommender</h1>
-
-      <label className="block mb-2">Select your role:</label>
-      <select value={role} onChange={e => setRole(e.target.value)} className="mb-4 p-2 border">
-        {Object.keys(roles).map(r => <option key={r} value={r}>{r}</option>)}
-      </select>
-
-      <label className="block mb-2">Preferred cause:</label>
-      <select value={cause} onChange={e => setCause(e.target.value)} className="mb-4 p-2 border">
-        {causes.map(c => <option key={c} value={c}>{c}</option>)}
-      </select>
-
-      <NonprofitList nonprofits={filtered} weight={roles[role]} />
+    <div className="p-6">
+      <h1 className="text-2xl font-bold mb-4">Top Nonprofits</h1>
+      {loading ? (
+        <p>Loading nonprofits...</p>
+      ) : (
+        <ul className="space-y-4">
+          {nonprofits.map((np) => (
+            <li key={np.ein} className="border p-4 rounded shadow">
+              <h2 className="text-lg font-semibold">{np.name}</h2>
+              <p className="text-sm">{np.mission || "No mission statement available."}</p>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
-}
+};
 
 export default App;
