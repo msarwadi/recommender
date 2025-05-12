@@ -1,51 +1,42 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import CompanyForm from './CompanyForm';
+import SearchSection from './SearchSection';
+import BreakdownSection from './components/BreakdownSection';
 
-const App = () => {
-  const [nonprofits, setNonprofits] = useState([]);
-  const [loading, setLoading] = useState(true);
+function App() {
+  const [recommendation, setRecommendation] = useState('');
 
-  const PUBLIC_KEY = import.meta.env.VITE_PUBLIC_KEY;
-
-  useEffect(() => {
-    const fetchNonprofits = async () => {
-      const url = new URL("https://api.getchange.io/api/v1/nonprofits");
-      url.searchParams.append("public_key", PUBLIC_KEY);
-      url.searchParams.append("limit", "20");
-      // You can include multiple categories here if you'd like:
-      url.searchParams.append("categories[]", "education");
-      url.searchParams.append("categories[]", "healthcare");
-
-      try {
-        const res = await fetch(url);
-        const data = await res.json();
-        setNonprofits(data.nonprofits || []); // Ensure nonprofits key exists
-      } catch (error) {
-        console.error("Error fetching nonprofits:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchNonprofits();
-  }, [PUBLIC_KEY]);
+  const handleCompanySubmit = async (companyInfo) => {
+    const res = await fetch('/api/recommendation', {
+      method: 'POST',
+      body: JSON.stringify(companyInfo),
+      headers: { 'Content-Type': 'application/json' },
+    });
+    const data = await res.json();
+    setRecommendation(data.recommendation);
+  };
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Top Nonprofits</h1>
-      {loading ? (
-        <p>Loading nonprofits...</p>
-      ) : (
-        <ul className="space-y-4">
-          {nonprofits.map((np) => (
-            <li key={np.ein} className="border p-4 rounded shadow">
-              <h2 className="text-lg font-semibold">{np.name}</h2>
-              <p className="text-sm">{np.mission || "No mission statement available."}</p>
-            </li>
-          ))}
-        </ul>
-      )}
+    <div className="max-w-4xl mx-auto p-6 space-y-6">
+      <h1 className="text-3xl font-bold">Corporate Donation Helper</h1>
+      
+      <section>
+        <h2 className="text-xl font-semibold mb-2">🧠 AI-Powered Breakdown</h2>
+        <CompanyForm onSubmit={handleCompanySubmit} />
+        {recommendation && (
+          <div className="mt-4 bg-green-100 p-4 rounded">
+            <h3 className="font-semibold">Suggested Nonprofit:</h3>
+            <p>{recommendation}</p>
+          </div>
+        )}
+      </section>
+
+      <section>
+        <h2 className="text-xl font-semibold mb-2">🔎 Search for Nonprofits</h2>
+        <SearchSection />
+      </section>
     </div>
   );
-};
+}
 
 export default App;
