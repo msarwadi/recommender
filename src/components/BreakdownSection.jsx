@@ -8,13 +8,14 @@ const BreakdownSection = () => {
 
   const getRecommendation = async () => {
     setLoading(true);
-    const prompt = `A company named ${company} wants to donate to a nonprofit. Their goals are: ${goals}. Based on this, recommend a type of nonprofit or category and explain why.`;
+    const prompt = `A company named ${company} wants to donate to a nonprofit. Their goals are: ${goals}.
+                    Based on this, suggest one nonprofit category and a specific nonprofit they should consider, with reasoning.`;
 
     try {
       const res = await fetch('https://api.openai.com/v1/chat/completions', {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${import.meta.env.VITE_OPENAI_KEY}`,
+          'Authorization': `Bearer ${import.meta.env.OPENAI_KEY}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
