@@ -16,12 +16,11 @@ For this, I also researched what other competitors were out there, which is wher
 I utilized Change's Existing Documentation of getting all the nonprofits and used the existing API documentation I found. 
 
 ## Objective
-After inputting your company name and 
+To provide your company with the best nonprofit it should donate to based on <u>YOUR</u> goals
 
 ## Setup & Execution
-1. Download the ZIP file:  
+1. Download the ZIP file or go to Github and clone repository:  
    ```
-   bash
    git clone https://github.com/msarwadi/recommender.git
    cd recommender
    ```
@@ -38,6 +37,17 @@ After inputting your company name and
    npm run dev
    ```
 5. Open the link that pops up (https:localhost:XXXX) and navigate to this link in your browser of choice
-6. Enter **Company Name**, **Industry**, **Location**, and **Causes/Missions** you would like to contribute
-7. Click '''Generate Recommendation'''
+
+6. Enter 'Company Name', 'Industry', 'Location', and 'Causes/Missions' you would like to contribute to
+
+7. Click 'Generate Recommendation'
+
 8. Search the given recommendation in the Nonprofit Search Engine
+
+## Future Iterations
+
+1. **Security Improvement**: My first priority would be to actually make the application secure as the API keys can be easily accessible through Dev Tools, even though it is hidden in a .env file. However, due to time constraints, I wasn't able to actually focus on the security aspect of the application as the app currently has basic functionality for production purposes, but would not be able to be deployed.
+
+2. **Nonprofit Selector**: This is the biggest thing I would like to improve on if I worked on this project. I had ideas to implement manual algorithms combined with AI, but I didn't have the time to fully flesh out this idea. In my head, the idea was use AI to generate the report and breakdown rather than completely make the decision for you. It would have been fun to experiment by using ML or Natural Language Processing to parse the text of the user. Then, you could actually weight the options and determine the best match algorithmically by maybe using a Decision Tree or some sort of Scoring based algorithm.
+
+3. **Front-End**: I would probably design this with a much more user-friendly design in mind, but that would probably be something I work towards at the end once the app is fully functional
