@@ -19,9 +19,8 @@ I utilized Change's Existing Documentation of getting all the nonprofits and use
 To provide your company with the best nonprofit it should donate to based on <u>YOUR</u> goals
 
 ## Setup & Execution
-1. Download the ZIP file or go to Github and clone repository:  
+1. Download the ZIP file:  
    ```
-   git clone https://github.com/msarwadi/recommender.git
    cd recommender
    ```
 2. Enter the directory where the local files exist
@@ -36,11 +35,11 @@ To provide your company with the best nonprofit it should donate to based on <u>
    ```
    npm run dev
    ```
-5. Open the link that pops up (https:localhost:XXXX) and navigate to this link in your browser of choice
+5. Open the link that pops up `https:localhost:XXXX` and navigate to this link in your browser of choice
 
-6. Enter 'Company Name', 'Industry', 'Location', and 'Causes/Missions' you would like to contribute to
+6. Enter `Company Name`, `Industry`, `Location`, and `Causes/Missions` you would like to contribute to
 
-7. Click 'Generate Recommendation'
+7. Click `Generate Recommendation`
 
 8. Search the given recommendation in the Nonprofit Search Engine
 
