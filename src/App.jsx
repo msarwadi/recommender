@@ -13,6 +13,11 @@ function App() {
     dangerouslyAllowBrowser: true, // Required for frontend use
   });
   */
+
+  // Hello this is my test comment
+
+  // test branch edit haha
+  
   const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 
   const [recommendation, setRecommendation] = useState('');
